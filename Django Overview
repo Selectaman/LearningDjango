@@ -1,0 +1,264 @@
+Django - Overview
+As you already know, Django is a Python web framework. And like most modern framework, Django supports the MVC pattern. First let's see what is the Model-View-Controller (MVC) pattern, and then we will look at Django’s specificity for the Model-View-Template (MVT) pattern.
+
+MVC Pattern
+When talking about applications that provides UI (web or desktop), we usually talk about MVC architecture. And as the name suggests, MVC pattern is based on three components: Model, View, and Controller. Check our MVC tutorial here to know more.
+
+DJANGO MVC - MVT Pattern
+The Model-View-Template (MVT) is slightly different from MVC. In fact the main difference between the two patterns is that Django itself takes care of the Controller part (Software Code that controls the interactions between the Model and View), leaving us with the template. The template is a HTML file mixed with Django Template Language (DTL).
+
+The following diagram illustrates how each of the components of the MVT pattern interacts with each other to serve a user request −
+
+DJANGO MVC - MVT Pattern
+The developer provides the Model, the view and the template then just maps it to a URL and Django does the magic to serve it to the user.
+
+Django - Environment
+Django development environment consists of installing and setting up Python, Django, and a Database System. Since Django deals with web application, it's worth mentioning that you would need a web server setup as well.
+
+Step 1 – Installing Python
+Django is written in 100% pure Python code, so you'll need to install Python on your system. Latest Django version requires Python 2.6.5 or higher for the 2.6.x branch or higher than 2.7.3 for the 2.7.x branch.
+
+If you're on one of the latest Linux or Mac OS X distribution, you probably already have Python installed. You can verify it by typing python command at a command prompt. If you see something like this, then Python is installed.
+
+$ python
+Python 2.7.5 (default, Jun 17 2014, 18:11:42)
+[GCC 4.8.2 20140120 (Red Hat 4.8.2-16)] on linux2
+Otherwise, you can download and install the latest version of Python from the link http://www.python.org/download.
+
+Step 2 - Installing Django
+Installing Django is very easy, but the steps required for its installation depends on your operating system. Since Python is a platform-independent language, Django has one package that works everywhere regardless of your operating system.
+
+You can download the latest version of Django from the link http://www.djangoproject.com/download.
+
+UNIX/Linux and Mac OS X Installation
+You have two ways of installing Django if you are running Linux or Mac OS system −
+
+You can use the package manager of your OS, or use easy_install or pip if installed.
+
+Install it manually using the official archive you downloaded before.
+
+We will cover the second option as the first one depends on your OS distribution. If you have decided to follow the first option, just be careful about the version of Django you are installing.
+
+Let's say you got your archive from the link above, it should be something like Django-x.xx.tar.gz:
+
+Extract and install.
+
+$ tar xzvf Django-x.xx.tar.gz
+$ cd Django-x.xx
+$ sudo python setup.py install
+You can test your installation by running this command −
+
+$ django-admin.py --version
+If you see the current version of Django printed on the screen, then everything is set.
+
+Note − For some version of Django it will be django-admin the ".py" is removed.
+
+Windows Installation
+We assume you have your Django archive and python installed on your computer.
+
+First, PATH verification.
+
+On some version of windows (windows 7) you might need to make sure the Path system variable has the path the following C:\Python27\;C:\Python27\Lib\site-packages\django\bin\ in it, of course depending on your Python version.
+
+Then, extract and install Django.
+
+c:\>cd c:\Django-x.xx
+Next, install Django by running the following command for which you will need administrative privileges in windows shell "cmd" −
+
+c:\Django-x.xx>python setup.py install
+To test your installation, open a command prompt and type the following command −
+
+c:\>django-admin.py --version
+If you see the current version of Django printed on screen, then everything is set.
+
+OR
+
+Launch a "cmd" prompt and type python then −
+
+c:\> python
+>>> import django
+>>> print django.get_version()
+Step 3 – Database Setup
+Django supports several major database engines and you can set up any of them based on your comfort.
+
+MySQL (http://www.mysql.com/)
+PostgreSQL (http://www.postgresql.org/)
+SQLite 3 (http://www.sqlite.org/)
+Oracle (http://www.oracle.com/)
+MongoDb (https://django-mongodb-engine.readthedocs.org)
+GoogleAppEngine Datastore (https://cloud.google.com/appengine/articles/django-nonrel)
+You can refer to respective documentation to installing and configuring a database of your choice.
+
+Note − Number 5 and 6 are NoSQL databases.
+
+Step 4 – Web Server
+Django comes with a lightweight web server for developing and testing applications. This server is pre-configured to work with Django, and more importantly, it restarts whenever you modify the code.
+
+However, Django does support Apache and other popular web servers such as Lighttpd. We will discuss both the approaches in coming chapters while working with different examples.
+
+Django - Creating a Project
+Now that we have installed Django, let's start using it. In Django, every web app you want to create is called a project; and a project is a sum of applications. An application is a set of code files relying on the MVT pattern. As example let's say we want to build a website, the website is our project and, the forum, news, contact engine are applications. This structure makes it easier to move an application between projects since every application is independent.
+
+Create a Project
+Whether you are on Windows or Linux, just get a terminal or a cmd prompt and navigate to the place you want your project to be created, then use this code −
+
+$ django-admin startproject myproject
+This will create a "myproject" folder with the following structure −
+
+myproject/
+   manage.py
+   myproject/
+      __init__.py
+      settings.py
+      urls.py
+      wsgi.py
+The Project Structure
+The “myproject” folder is just your project container, it actually contains two elements −
+
+manage.py − This file is kind of your project local django-admin for interacting with your project via command line (start the development server, sync db...). To get a full list of command accessible via manage.py you can use the code −
+
+$ python manage.py help
+The “myproject” subfolder − This folder is the actual python package of your project. It contains four files −
+
+__init__.py − Just for python, treat this folder as package.
+
+settings.py − As the name indicates, your project settings.
+
+urls.py − All links of your project and the function to call. A kind of ToC of your project.
+
+wsgi.py − If you need to deploy your project over WSGI.
+
+Setting Up Your Project
+Your project is set up in the subfolder myproject/settings.py. Following are some important options you might need to set −
+
+DEBUG = True
+This option lets you set if your project is in debug mode or not. Debug mode lets you get more information about your project's error. Never set it to ‘True’ for a live project. However, this has to be set to ‘True’ if you want the Django light server to serve static files. Do it only in the development mode.
+
+DATABASES = {
+   'default': {
+      'ENGINE': 'django.db.backends.sqlite3',
+      'NAME': 'database.sql',
+      'USER': '',
+      'PASSWORD': '',
+      'HOST': '',
+      'PORT': '',
+   }
+}
+Database is set in the ‘Database’ dictionary. The example above is for SQLite engine. As stated earlier, Django also supports −
+
+MySQL (django.db.backends.mysql)
+PostGreSQL (django.db.backends.postgresql_psycopg2)
+Oracle (django.db.backends.oracle) and NoSQL DB
+MongoDB (django_mongodb_engine)
+Before setting any new engine, make sure you have the correct db driver installed.
+
+You can also set others options like: TIME_ZONE, LANGUAGE_CODE, TEMPLATE…
+
+Now that your project is created and configured make sure it's working −
+
+$ python manage.py runserver
+You will get something like the following on running the above code −
+
+Validating models...
+
+0 errors found
+September 03, 2015 - 11:41:50
+Django version 1.6.11, using settings 'myproject.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Django - Apps Life Cycle
+A project is a sum of many applications. Every application has an objective and can be reused into another project, like the contact form on a website can be an application, and can be reused for others. See it as a module of your project.
+
+Create an Application
+We assume you are in your project folder. In our main “myproject” folder, the same folder then manage.py −
+
+$ python manage.py startapp myapp
+You just created myapp application and like project, Django create a “myapp” folder with the application structure −
+
+myapp/
+   __init__.py
+   admin.py
+   models.py
+   tests.py
+   views.py
+__init__.py − Just to make sure python handles this folder as a package.
+
+admin.py − This file helps you make the app modifiable in the admin interface.
+
+models.py − This is where all the application models are stored.
+
+tests.py − This is where your unit tests are.
+
+views.py − This is where your application views are.
+
+Get the Project to Know About Your Application
+At this stage we have our "myapp" application, now we need to register it with our Django project "myproject". To do so, update INSTALLED_APPS tuple in the settings.py file of your project (add your app name) −
+
+INSTALLED_APPS = (
+   'django.contrib.admin',
+   'django.contrib.auth',
+   'django.contrib.contenttypes',
+   'django.contrib.sessions',
+   'django.contrib.messages',
+   'django.contrib.staticfiles',
+   'myapp',
+)
+Django - Admin Interface
+Django provides a ready-to-use user interface for administrative activities. We all know how an admin interface is important for a web project. Django automatically generates admin UI based on your project models.
+
+Starting the Admin Interface
+The Admin interface depends on the django.countrib module. To have it working you need to make sure some modules are imported in the INSTALLED_APPS and MIDDLEWARE_CLASSES tuples of the myproject/settings.py file.
+
+For INSTALLED_APPS make sure you have −
+
+INSTALLED_APPS = (
+   'django.contrib.admin',
+   'django.contrib.auth',
+   'django.contrib.contenttypes',
+   'django.contrib.sessions',
+   'django.contrib.messages',
+   'django.contrib.staticfiles',
+   'myapp',
+)
+For MIDDLEWARE_CLASSES −
+
+MIDDLEWARE_CLASSES = (
+   'django.contrib.sessions.middleware.SessionMiddleware',
+   'django.middleware.common.CommonMiddleware',
+   'django.middleware.csrf.CsrfViewMiddleware',
+   'django.contrib.auth.middleware.AuthenticationMiddleware',
+   'django.contrib.messages.middleware.MessageMiddleware',
+   'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+Before launching your server, to access your Admin Interface, you need to initiate the database −
+
+$ python manage.py migrate
+syncdb will create necessary tables or collections depending on your db type, necessary for the admin interface to run. Even if you don't have a superuser, you will be prompted to create one.
+
+If you already have a superuser or have forgotten it, you can always create one using the following code −
+
+$ python manage.py createsuperuser
+Now to start the Admin Interface, we need to make sure we have configured a URL for our admin interface. Open the myproject/url.py and you should have something like −
+
+from django.conf.urls import patterns, include, url
+
+from django.contrib import admin
+admin.autodiscover()
+
+urlpatterns = patterns('',
+   # Examples:
+   # url(r'^$', 'myproject.views.home', name = 'home'),
+   # url(r'^blog/', include('blog.urls')),
+
+   url(r'^admin/', include(admin.site.urls)),
+)
+Now just run the server.
+
+$ python manage.py runserver
+And your admin interface is accessible at: http://127.0.0.1:8000/admin/
+
+Admin Interface
+Once connected with your superuser account, you will see the following screen −
+
+Super User Account
+That interface will let you administrate Django groups and users, and all registered models in your app. The interface gives you the ability to do at least the "CRUD" (Create, Read, Update, Delete) operations on your models.
