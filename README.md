@@ -4,9 +4,10 @@
 
 Installation
 ====================
-	```
-		pip install -r requirements.txt
-	```
+
+```
+	pip install -r requirements.txt
+```
 
 
 Setup & Running
@@ -14,15 +15,18 @@ Setup & Running
 
 ## Setup:
 
-  Clone:
-  	```
-  		git clone https://github.com/Selectaman/LearningDjango.git
-  	```
-## Running:
+Clone:
 
-  	```
-		python manage.py makemigrations
-		python manage.py migrate
-		python manage.py runserver
-  	```
+```
+	git clone https://github.com/Selectaman/LearningDjango.git
+```
+## Running:
+	
+Run:
+
+```
+	python manage.py makemigrations
+	python manage.py migrate
+	python manage.py runserver
+```
 
